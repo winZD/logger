@@ -34,7 +34,7 @@ app.post(
       where: { email: email },
     });
     if (!userExists) {
-      res.send("404-Not found");
+      res.send("404-Not found!");
     }
     // validate the password
     const validPassword = comparePassword(
