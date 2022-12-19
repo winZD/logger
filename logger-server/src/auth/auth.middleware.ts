@@ -11,7 +11,7 @@ export const authMiddleware = (
   console.log(auth);
   if (auth && auth.startsWith("Bearer")) {
     const token = auth.slice(7);
-
+    console.log("----------------------------------", token);
     try {
       const tokenData = verifyToken(token);
       req.body.tokenData = tokenData;

@@ -21,7 +21,7 @@ export const verifyToken = (token: string): string => {
   try {
     const tokenData = jwt.verify(token, jwtKey);
     console.log(tokenData);
-    console.log("___>", tokenData);
+
     return tokenData as string;
   } catch (error) {
     throw error;
