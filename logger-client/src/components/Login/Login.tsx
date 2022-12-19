@@ -13,9 +13,11 @@ import {
   Anchor,
   Stack,
 } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"]);
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       email: "",
@@ -49,7 +51,7 @@ const Login = (props: PaperProps) => {
 
         <Divider labelPosition="center" my="lg" />
 
-        <form onSubmit={form.onSubmit(() => {})}>
+        <form onSubmit={form.onSubmit(() => navigate("/"))}>
           <Stack>
             {type === "register" && (
               <TextInput
