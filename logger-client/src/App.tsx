@@ -2,6 +2,7 @@ import Login from "./components/Login/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppShellLayout from "./components/AppShellLayout/AppShellLayout";
 import { ProtectedRoute } from "./utils/ProtectedRoute";
+import Customer from "./components/Customer/Customer";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -18,7 +19,15 @@ const App = () => {
       children: [
         {
           path: "by-customer",
-          element: <h1>Hello customer</h1>,
+          element: <Customer />,
+        },
+        {
+          path: "by-customer/:id",
+          element: (
+            <div>
+              <h1>hello</h1>
+            </div>
+          ),
         },
         {
           path: "unpaid",

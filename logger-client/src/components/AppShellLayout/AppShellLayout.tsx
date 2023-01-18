@@ -58,7 +58,7 @@ const AppShellLayout = () => {
               />
             </MediaQuery>
 
-            <Text>Application header</Text>
+            <Text>LOGGER</Text>
           </div>
         </Header>
       }
