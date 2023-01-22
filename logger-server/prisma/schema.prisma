@@ -18,3 +18,14 @@ model User {
   accessToken  String?
   refreshToken String?
 }
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime
+  email     String   @unique
+  invoice   String   @unique
+  note      String?
+  oib       String   @unique
+  payed     Boolean  @default(false)
+}

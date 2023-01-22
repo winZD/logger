@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import express, { NextFunction, Request, Response } from "express";
 import { env } from "process";
 import { authMiddleware } from "./auth/auth.middleware";
@@ -21,6 +21,60 @@ app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Application works!");
+});
+app.get("/api/v1/allCustomers", async (req, res) => {
+  const customers = await prisma.customer.findMany();
+  res.json({ data: customers });
+});
+app.post("/api/v1/customers", async (req, res) => {
+  const createCustomer = await prisma.customer.create({
+    data: {
+      email: req.body.email,
+      name: req.body.name,
+      invoice: req.body.invoice,
+      oib: req.body.oib,
+      payed: req.body.payed,
+      createdAt: new Date(),
+      note: req.body.note || null,
+    } as Prisma.CustomerCreateInput,
+  });
+  res.json({ data: createCustomer });
+});
+app.get("/api/v1/customerById/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const customerById = await prisma.customer.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+  res.json({ data: customerById });
+});
+
+app.put("/api/v1/customer/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const updateCustomer = await prisma.customer.update({
+    where: { id: Number(id) },
+    data: {
+      createdAt: new Date(),
+      invoice: req.body.invoice,
+      name: req.body.name,
+      payed: req.body.payed,
+    },
+  });
+  res.json({ data: updateCustomer });
+});
+
+app.delete("/api/v1/delete-customer/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const deleteCustomer = await prisma.customer.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+  res.json({ data: deleteCustomer });
 });
 
 app.post("/login", async (req: Request, res: Response) => {
