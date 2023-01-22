@@ -14,6 +14,7 @@ import { Link, Outlet } from "react-router-dom";
 const AppShellLayout = () => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
+  const [active, setActive] = useState(0);
   return (
     <AppShell
       styles={{
@@ -36,9 +37,21 @@ const AppShellLayout = () => {
           {" "}
           <Text>Dashboard</Text>
           <Navbar.Section>
-            <NavLink label="Invoices">
-              <NavLink label="By customer" component={Link} to="by-customer" />
-              <NavLink label="Unpaid" component={Link} to={"unpaid"} />
+            <NavLink defaultOpened label="Računi">
+              <NavLink
+                active={active === 0}
+                label="By customer"
+                component={Link}
+                to=""
+                onClick={() => setActive(0)}
+              />
+              <NavLink
+                active={active === 1}
+                label="Unpaid"
+                component={Link}
+                to={"unpaid"}
+                onClick={() => setActive(1)}
+              />
             </NavLink>
           </Navbar.Section>
         </Navbar>

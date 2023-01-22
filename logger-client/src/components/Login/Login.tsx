@@ -51,7 +51,7 @@ const Login = (props: PaperProps) => {
 
         <Divider labelPosition="center" my="lg" />
 
-        <form onSubmit={form.onSubmit(() => navigate("/"))}>
+        <form onSubmit={form.onSubmit(() => navigate("/by-customer"))}>
           <Stack>
             {type === "register" && (
               <TextInput

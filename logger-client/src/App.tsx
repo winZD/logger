@@ -1,5 +1,9 @@
 import Login from "./components/Login/Login";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import AppShellLayout from "./components/AppShellLayout/AppShellLayout";
 import { ProtectedRoute } from "./utils/ProtectedRoute";
 import Customer from "./components/Customer/Customer";
@@ -9,6 +13,7 @@ const App = () => {
     { path: "/login", element: <Login /> },
     {
       path: "/",
+
       element: (
         <ProtectedRoute user={"user"} redirectPath="login">
           {" "}
@@ -18,11 +23,12 @@ const App = () => {
       errorElement: <div>Nothing found</div>,
       children: [
         {
-          path: "by-customer",
+          index: true,
+
           element: <Customer />,
         },
         {
-          path: "by-customer/:id",
+          path: "/:id",
           element: (
             <div>
               <h1>hello</h1>
