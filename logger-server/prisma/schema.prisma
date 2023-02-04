@@ -29,3 +29,14 @@ model Customer {
   oib       String   @unique
   payed     Boolean  @default(false)
 }
+
+model Article {
+  id                  Int      @id @default(autoincrement())
+  unit                Int
+  createdAt           DateTime
+  price               Int
+  invoice             String   @unique
+  discount            String?
+  available           Boolean  @default(false)
+  totalUnitsAvailable Int
+}
