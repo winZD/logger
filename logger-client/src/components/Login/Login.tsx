@@ -14,10 +14,27 @@ import {
   Stack,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import axios from "../../http";
 
 const Login = (props: PaperProps) => {
+  type User = {
+    username: string;
+    password: string;
+  };
   const [type, toggle] = useToggle(["login", "register"]);
   const navigate = useNavigate();
+
+  const login = () => {
+    const creds = { username: "user", password: "pass" };
+
+    axios<User>({ method: "POST", url: "/api/v1/auth/login", data: creds })
+      .then((user) => {
+        /* do whatever with user here */
+      })
+      .catch((err) => {
+        /* handle errors */
+      });
+  };
   const form = useForm({
     initialValues: {
       email: "",
