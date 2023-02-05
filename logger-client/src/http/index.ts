@@ -1,5 +1,6 @@
 import axiosClient from "axios";
 import type { AxiosRequestConfig } from "axios";
+import { env } from "process";
 
 /* axios.interceptors.request.use(
   (config) => {
@@ -35,7 +36,8 @@ const instance = axiosClient.create({
     Accept: "application/json",
     "Content-Type": "application/json; charset=utf-8",
   },
-  baseURL: "",
+  baseURL: process.env.REACT_APP_BASE_URL,
+  timeout: 6000,
 });
 
 /**
@@ -64,6 +66,7 @@ instance.interceptors.response.use(
  * @returns A promise object of a response of the HTTP request with the 'data' object already
  * destructured.
  */
-const axios = <T>(cfg: AxiosRequestConfig) => instance.request<any, T>(cfg);
+//const axios = <T>(cfg: AxiosRequestConfig) => instance.request<any, T>(cfg);
+const axios = (cfg: AxiosRequestConfig) => instance.request<any>(cfg);
 
 export default axios;

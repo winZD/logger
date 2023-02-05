@@ -18,18 +18,24 @@ import axios from "../../http";
 
 const Login = (props: PaperProps) => {
   type User = {
-    username: string;
+    email: string;
     password: string;
   };
   const [type, toggle] = useToggle(["login", "register"]);
   const navigate = useNavigate();
 
-  const login = () => {
-    const creds = { username: "user", password: "pass" };
+  const login = async () => {
+    const creds = { email: "ivan@gmail.com", password: "password" };
 
-    axios<User>({ method: "POST", url: "/api/v1/auth/login", data: creds })
+    //await axios<User>({
+    await axios({
+      method: "POST",
+      url: "/api/v1/auth/login",
+      data: creds,
+    })
       .then((user) => {
         /* do whatever with user here */
+        console.log(user);
       })
       .catch((err) => {
         /* handle errors */
@@ -68,7 +74,7 @@ const Login = (props: PaperProps) => {
 
         <Divider labelPosition="center" my="lg" />
 
-        <form onSubmit={form.onSubmit(() => navigate("/by-customer"))}>
+        <form onSubmit={form.onSubmit(() => login())}>
           <Stack>
             {type === "register" && (
               <TextInput

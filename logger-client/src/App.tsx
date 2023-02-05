@@ -9,7 +9,6 @@ import { ProtectedRoute } from "./utils/ProtectedRoute";
 import Customer from "./components/Customer/Customer";
 
 const App = () => {
-  console.log("");
   const router = createBrowserRouter([
     { path: "/login", element: <Login /> },
     {
