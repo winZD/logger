@@ -5,6 +5,7 @@ import { authMiddleware } from "./auth/auth.middleware";
 import { generateAuthToken } from "./auth/jwt";
 import { comparePassword } from "./auth/passwordHash";
 import jwt from "jsonwebtoken";
+import cors from "cors";
 
 const prisma = new PrismaClient();
 
@@ -18,6 +19,21 @@ app.use(
 );
 
 app.use(express.json());
+app.use(
+  cors({
+    allowedHeaders: [
+      "sessionId",
+      "Content-Type",
+      "Authorization",
+      "authorization",
+    ],
+    //exposedHeaders: ["sessionId"],
+
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: false,
+    preflightContinue: false,
+  })
+);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Application works!");
@@ -77,7 +93,7 @@ app.delete("/api/v1/delete-customer/:id", async (req, res) => {
   res.json({ data: deleteCustomer });
 });
 
-app.post("/login", async (req: Request, res: Response) => {
+app.post("/api/v1/auth/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const userExists = await prisma.user.findUnique({
     where: { email: email },
